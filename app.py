@@ -20,8 +20,11 @@ FEATURES = list(X_sample.drop(columns=["Potability"]).columns)
 def home():
     return render_template("index.html", features=FEATURES)
 
-@app.route("/predict", methods=["POST"])
+@app.route("/predict", methods=["GET", "POST"])
 def predict():
+    if request.method == "GET":
+        return render_template("predict.html", features=FEATURES)
+
     try:
         # Get input values from form
         vals = [float(request.form.get(f, 0)) for f in FEATURES]
@@ -40,6 +43,14 @@ def predict():
 
     except Exception as e:
         return f"Error: {e}", 400
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
