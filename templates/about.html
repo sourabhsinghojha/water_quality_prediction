@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About – AquaScan</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    *{ margin:0; padding:0; box-sizing:border-box; }
+    body{
+      background:#001f3f;
+      font-family:'Poppins',sans-serif;
+      color:#e0f7fa;
+    }
+
+    header{
+      width:100%;
+      padding:20px 40px;
+      background:rgba(0,0,0,0.4);
+      backdrop-filter:blur(10px);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      border-bottom:1px solid #00ccff55;
+    }
+    header h1{
+      color:#00ccff;
+      text-shadow:0 0 10px #00ccff;
+      font-size:2rem;
+    }
+    nav a{
+      color:#bff7ff;
+      margin-left:25px;
+      font-size:1rem;
+      text-decoration:none;
+      transition:.3s;
+    }
+    nav a:hover{
+      color:#00ccff;
+    }
+
+    .section{
+      max-width:1200px;
+      margin:50px auto;
+      padding:40px;
+      background:rgba(0,40,70,0.5);
+      border-radius:25px;
+      box-shadow:0 0 25px #00ccff55;
+      backdrop-filter:blur(12px);
+      text-align:center;
+    }
+
+    .section h2{
+      font-size:2.5rem;
+      color:#00ccff;
+      text-shadow:0 0 12px #00ccff;
+      margin-bottom:20px;
+    }
+
+    p{
+      font-size:1.1rem;
+      line-height:1.8;
+      color:#dffbff;
+      margin-bottom:20px;
+    }
+
+    .team{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:25px;
+      margin-top:30px;
+    }
+
+    .card{
+      background:rgba(0,40,70,0.55);
+      padding:25px;
+      border-radius:20px;
+      backdrop-filter:blur(8px);
+      box-shadow:0 0 20px #00ccff55;
+      transition:.3s;
+    }
+    .card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 0 30px #00ccff99;
+    }
+    .card i{
+      font-size:3rem;
+      color:#00ccff;
+      margin-bottom:10px;
+    }
+    .card h3{
+      color:#bff7ff;
+      margin-bottom:10px;
+    }
+
+    footer{
+      text-align:center;
+      padding:20px;
+      margin-top:40px;
+      background:#000e1f;
+      border-top:1px solid #00ccff55;
+      color:#7ee9ff;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>AquaScan</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+
+<section class="section">
+  <h2>About AquaScan</h2>
+  <p>
+    AquaScan is an advanced water quality analysis platform that uses an optimized Machine Learning model to
+    determine if water is potable. By analyzing key indicators like pH, TDS, turbidity, chloramines and more,
+    AquaScan provides instant results with high accuracy.
+  </p>
+
+  <p>
+    Our mission is to make water testing accessible, fast, and reliable for households, industries, and researchers.
+  </p>
+
+  <h2>Our Team</h2>
+
+  <div class="team">
+    <div class="card">
+      <i class="fa-solid fa-user"></i>
+      <h3>Sourabh Singh Ojha</h3>
+      <p>Lead Developer & ML Model Architect</p>
+    </div>
+
+    <div class="card">
+      <i class="fa-solid fa-user-gear"></i>
+      <h3>Sourabh Singh Ojha</h3>
+      <p>Frontend & UI/UX Designer</p>
+    </div>
+
+    <div class="card">
+      <i class="fa-solid fa-flask"></i>
+      <h3>Sourabh Singh Ojha</h3>
+      <p>Water Quality Expert</p>
+    </div>
+  </div>
+</section>
+
+
+<footer>
+  © 2025 AquaScan | All Rights Reserved
+</footer>
+
+</body>
+</html>

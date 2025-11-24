@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AquaScan — Home</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    /* ========== Base ========== */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;font-family:'Poppins',sans-serif;background:#001f3f;color:#e0f7fa; -webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    /* container to center page content visually */
+    .page { max-width:1280px; margin:0 auto; padding:0 20px; }
+
+    /* ========== Waves + Bubbles ========== */
+    .waves{ position:fixed; bottom:0; left:0; width:200%; height:200px;
+      background:
+        radial-gradient(circle,rgba(0,123,255,0.18),transparent 70%),
+        repeating-radial-gradient(circle,rgba(0,123,255,0.1)0 10px,transparent 10px 20px);
+      animation:waveMove 13s linear infinite; filter:drop-shadow(0 0 10px #00aaff88); z-index:0; pointer-events:none; }
+    @keyframes waveMove{ 0%{background-position:0 0,0 0} 100%{background-position:1000px 0,40px 40px} }
+
+    .bubbles{ position:fixed; bottom:0; width:100%; height:100%; z-index:1; pointer-events:none; }
+    .bubble{ position:absolute;border-radius:50%; background:rgba(0,170,255,0.18); animation:bubbleRise infinite ease-in; opacity:0; }
+    @keyframes bubbleRise{ 0%{transform:translateY(100vh); opacity:0} 25%{opacity:1} 100%{transform:translateY(-130vh); opacity:0} }
+    .bubble:nth-child(1){width:55px;height:55px;left:8%;animation-duration:12s}
+    .bubble:nth-child(2){width:35px;height:35px;left:40%;animation-duration:9s}
+    .bubble:nth-child(3){width:45px;height:45px;left:68%;animation-duration:11s}
+    .bubble:nth-child(4){width:25px;height:25px;left:86%;animation-duration:8s}
+    .bubble:nth-child(5){width:50px;height:50px;left:28%;animation-duration:13s}
+
+    /* ========== NAV ========== */
+    nav{
+      width:100%; position:fixed; top:0; left:0; z-index:30;
+      background:rgba(0,18,36,0.55); backdrop-filter:blur(6px);
+      border-bottom:1px solid rgba(0,204,255,0.12);
+      box-shadow:0 6px 18px rgba(0,0,0,0.25);
+    }
+    .nav-inner{ max-width:1280px; margin:0 auto; padding:16px 20px; display:flex; align-items:center; justify-content:space-between; gap:20px; }
+    .logo{ color:#00ccff; font-weight:700; font-size:1.6rem; text-shadow:0 0 8px rgba(0,204,255,0.12) }
+    nav ul{ list-style:none; display:flex; gap:26px; align-items:center }
+    nav a.nav-link{ color:#c9f5ff; font-weight:600; transition:all .22s }
+    nav a.nav-link:hover{ color:#00e5ff; text-shadow:0 0 8px rgba(0,229,255,0.15) }
+
+    /* ========== HERO ========== */
+    .hero{ padding-top:100px; padding-bottom:40px; text-align:center; position:relative; z-index:5; }
+    .hero h1{ color:#00ccff; font-size:3.4rem; margin-bottom:10px; text-shadow:0 0 18px rgba(0,204,255,0.12) }
+    .hero p{ max-width:820px; margin:12px auto 0; color:#bfefff; font-size:1.15rem; line-height:1.5 }
+    .hero .cta{ margin-top:22px; display:inline-block; background:#00ccff; color:#001f3f; padding:12px 28px; border-radius:28px; font-weight:700; box-shadow:0 8px 30px rgba(0,204,255,0.12); transition:translate .2s, box-shadow .2s }
+    .hero .cta:hover{ transform:translateY(-4px); box-shadow:0 14px 40px rgba(0,229,255,0.18) }
+
+    /* ========== SLIDER ========== */
+    .slider-wrap{ margin:38px auto 0; position:relative; z-index:5; max-width:1100px; }
+    .slider-container{ overflow:hidden; border-radius:18px; box-shadow:0 10px 40px rgba(0,0,0,0.45); border:1px solid rgba(0,204,255,0.06); background:linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.02)) }
+    .slides{ display:flex; transition:transform .75s cubic-bezier(.2,.9,.2,1); will-change:transform; }
+    .slide{ position:relative; min-width:100%; display:block; }
+    .slide img{ width:100%; height:480px; display:block; object-fit:cover; filter:brightness(.72); border-radius:18px; vertical-align:middle; }
+    /* slide caption */
+    .slide-caption{
+      position:absolute; left:28px; bottom:28px; z-index:6;
+      background:linear-gradient(180deg, rgba(0,0,0,0.36), rgba(0,0,0,0.48));
+      color:#fff; padding:12px 18px; border-radius:10px;
+      font-size:1.2rem; font-weight:600; box-shadow:0 6px 18px rgba(0,0,0,0.35);
+      backdrop-filter: blur(6px);
+    }
+
+    /* arrows & dots */
+    .arrow{ position:absolute; top:50%; transform:translateY(-50%); z-index:7; background:rgba(0,0,0,0.35); border-radius:50%; width:48px; height:48px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#00ccff; box-shadow:0 6px 18px rgba(0,0,0,0.45); transition:transform .18s }
+    .arrow:hover{ transform:translateY(-50%) scale(1.06) }
+    .arrow-left{ left:14px }
+    .arrow-right{ right:14px }
+    .dots{ position:absolute; bottom:14px; left:50%; transform:translateX(-50%); z-index:7; display:flex; gap:10px; }
+    .dot{ width:12px; height:12px; border-radius:50%; background:#00ccff; opacity:.35; cursor:pointer; transition:opacity .15s, transform .15s }
+    .dot:hover{ transform:scale(1.12) }
+    .dot.active{ opacity:1 }
+
+    /* responsive smaller slider height */
+    @media (max-width:700px){
+      .slide img{ height:300px }
+      .hero h1{ font-size:2.2rem }
+      .slide-caption{ font-size:1rem; left:16px; right:16px; bottom:18px }
+      .nav-inner{ padding:12px 14px }
+      nav ul{ gap:14px }
+    }
+
+    /* ========== Sections (glass style) ========== */
+    main{ margin-top:28px; padding-bottom:60px; position:relative; z-index:5 }
+    .section{ padding:48px 26px; text-align:center; margin:34px auto; border-radius:20px; max-width:1200px; background:linear-gradient(180deg, rgba(0,20,40,0.44), rgba(0,14,30,0.28)); border:1px solid rgba(0,204,255,0.05); box-shadow:0 10px 30px rgba(0,0,0,0.38); backdrop-filter:blur(6px) }
+    .section h2{ font-size:2rem; color:#00ccff; margin-bottom:14px; text-shadow:0 0 10px rgba(0,204,255,0.06) }
+    .grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:22px; margin-top:16px }
+    .card{ background:linear-gradient(180deg, rgba(0,30,55,0.48), rgba(0,18,36,0.36)); padding:20px; border-radius:14px; border:1px solid rgba(0,204,255,0.06); box-shadow:0 8px 20px rgba(0,0,0,0.36) }
+    .card i{ font-size:1.7rem; color:#00cfff; margin-bottom:12px; display:inline-block }
+    .card h3{ color:#dff9ff; font-size:1.1rem; margin:8px 0 }
+    .card p{ color:#c8f6ff; font-size:0.98rem; line-height:1.45 }
+
+    /* ========== Footer ========== */
+    footer{ margin-top:18px; text-align:center; padding:22px 14px; color:#93f0ff; border-top:1px solid rgba(0,204,255,0.04) }
+
+    /* small utilities */
+    .muted{ color:#bfefff; opacity:.9 }
+  </style>
+</head>
+<body>
+
+  <!-- Animated background elements -->
+  <div class="waves" aria-hidden="true"></div>
+  <div class="bubbles" aria-hidden="true">
+    <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+  </div>
+
+  <!-- NAV -->
+  <nav role="navigation" aria-label="Main navigation">
+    <div class="nav-inner page">
+      <div class="logo">AquaScan</div>
+      <ul>
+        <li><a class="nav-link" href="index.html">Home</a></li>
+        <li><a class="nav-link" href="about.html">About</a></li>
+        <li><a class="nav-link" href="predict.html">Predict</a></li>
+        <li><a class="nav-link" href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero page" role="banner">
+    <h1>AI Powered Water Quality Analyzer</h1>
+    <p>Instant potability checks using validated scientific parameters — pH, TDS, hardness, turbidity and more. Fast, local, and privacy-first.</p>
+    <a class="cta" href="predict.html"><i class="fa-solid fa-flask" style="margin-right:10px"></i>Start Analysis</a>
+  </header>
+
+  <!-- SLIDER -->
+  <div class="slider-wrap page">
+    <div class="slider-container" id="main-slider" aria-roledescription="carousel">
+      <div class="slides">
+        <div class="slide" data-index="0">
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&w=1600&q=80" alt="Ocean water - clean water concept">
+          <div class="slide-caption">Clean Water Saves Lives</div>
+        </div>
+
+        <div class="slide" data-index="1">
+          <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&w=1600&q=80" alt="Scientist testing water">
+          <div class="slide-caption">AI-Based Water Potability Check</div>
+        </div>
+
+        <div class="slide" data-index="2">
+          <img src="https://images.unsplash.com/photo-1523861751938-12184f51b9a6?auto=format&w=1600&q=80" alt="Laboratory equipment">
+          <div class="slide-caption">Accurate Machine Learning Predictions</div>
+        </div>
+
+        <div class="slide" data-index="3">
+          <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&w=1600&q=80" alt="Sample testing">
+          <div class="slide-caption">Test Water Anywhere, Anytime</div>
+        </div>
+
+        <div class="slide" data-index="4">
+          <img src="https://images.unsplash.com/photo-1498654200943-1088dd4438ae?auto=format&w=1600&q=80" alt="Monitoring water quality">
+          <div class="slide-caption">Monitor Water Quality in Seconds</div>
+        </div>
+
+        <div class="slide" data-index="5">
+          <img src="https://images.unsplash.com/photo-1485796826113-174aa68fd81b?auto=format&w=1600&q=80" alt="Healthy family and water">
+          <div class="slide-caption">Your Health Begins With Clean Water</div>
+        </div>
+      </div>
+
+      <!-- controls -->
+      <div class="arrow arrow-left" id="slider-prev" role="button" aria-label="Previous slide">❮</div>
+      <div class="arrow arrow-right" id="slider-next" role="button" aria-label="Next slide">❯</div>
+      <div class="dots" id="slider-dots" aria-hidden="false"></div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT SECTIONS -->
+  <main class="page" role="main">
+
+    <section class="section" id="how-it-works">
+      <h2>How AquaScan Works</h2>
+      <div class="grid">
+        <div class="card">
+          <i class="fa-solid fa-flask" aria-hidden="true"></i>
+          <h3>1. Enter Water Parameters</h3>
+          <p>Provide pH, hardness, TDS, chloramines, turbidity and other indicators. We accept numerical inputs used by labs worldwide.</p>
+        </div>
+
+        <div class="card">
+          <i class="fa-solid fa-brain" aria-hidden="true"></i>
+          <h3>2. AI Model Evaluates</h3>
+          <p>Our trained ML model uses scientific thresholds and learned patterns to assess potability and risk factors.</p>
+        </div>
+
+        <div class="card">
+          <i class="fa-solid fa-droplet" aria-hidden="true"></i>
+          <h3>3. Instant Result</h3>
+          <p>Get a clear potability result and suggested actions if water is unsafe — all processed locally in your browser.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="why-test">
+      <h2>Why Water Testing Matters</h2>
+      <div class="grid">
+        <div class="card">
+          <i class="fa-solid fa-virus" aria-hidden="true"></i>
+          <h3>Prevent Diseases</h3>
+          <p>Regular testing helps stop waterborne illnesses and protects community health.</p>
+        </div>
+
+        <div class="card">
+          <i class="fa-solid fa-industry" aria-hidden="true"></i>
+          <h3>Detect Pollution</h3>
+          <p>Find chemical contamination from industry, agriculture or aging pipe infrastructure early.</p>
+        </div>
+
+        <div class="card">
+          <i class="fa-solid fa-shield" aria-hidden="true"></i>
+          <h3>Protect Your Home</h3>
+          <p>Safe water supports healthy families and prevents plumbing & appliance damage.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="testimonials">
+      <h2>What Users Say</h2>
+      <div class="grid">
+        <div class="card">
+          <i class="fa-solid fa-user"></i>
+          <h3>Ankit Sharma</h3>
+          <p>“Accurate and fast! Helped me check my borewell water.”</p>
+        </div>
+
+        <div class="card">
+          <i class="fa-solid fa-user"></i>
+          <h3>Priya Singh</h3>
+          <p>“Very easy to use and beautifully designed.”</p>
+        </div>
+
+        <div class="card">
+          <i class="fa-solid fa-user"></i>
+          <h3>Rohan Verma</h3>
+          <p>“Best online water analysis tool. Highly recommended.”</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <h2>Frequently Asked Questions</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Is this tool accurate?</h3>
+          <p>Yes — the model was trained on authoritative datasets and tuned to match lab thresholds. Use it as a quick screening tool.</p>
+        </div>
+
+        <div class="card">
+          <h3>Is my data stored?</h3>
+          <p>No — all processing is local in your browser unless you explicitly export or submit data elsewhere.</p>
+        </div>
+
+        <div class="card">
+          <h3>How fast is the prediction?</h3>
+          <p>Results are returned instantly once you click predict.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="page muted">© 2025 AquaScan — Built with care for safe water</div>
+  </footer>
+
+  <!-- ========== Slider script ========== -->
+  <script>
+    (function () {
+      const slidesWrap = document.querySelector('.slides');
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const dotsContainer = document.getElementById('slider-dots');
+      const prevBtn = document.getElementById('slider-prev');
+      const nextBtn = document.getElementById('slider-next');
+      let index = 0;
+      let autoPlayInterval = null;
+      const AUTOPLAY_MS = 4000;
+
+      // Build dots
+      slides.forEach((s, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'dot';
+        dot.setAttribute('aria-label', 'Go to slide ' + (i+1));
+        dot.addEventListener('click', () => { goTo(i); resetAutoplay(); });
+        dotsContainer.appendChild(dot);
+      });
+
+      const dots = Array.from(dotsContainer.children);
+
+      function update() {
+        slidesWrap.style.transform = `translateX(${-index * 100}%)`;
+        dots.forEach(d => d.classList.remove('active'));
+        if (dots[index]) dots[index].classList.add('active');
+      }
+
+      function goTo(i) {
+        const total = slides.length;
+        if (i < 0) i = total - 1;
+        if (i >= total) i = 0;
+        index = i;
+        update();
+      }
+
+      function next() { goTo(index + 1); }
+      function prev() { goTo(index - 1); }
+
+      // autoplay
+      function startAutoplay() {
+        stopAutoplay();
+        autoPlayInterval = setInterval(next, AUTOPLAY_MS);
+      }
+      function stopAutoplay() {
+        if (autoPlayInterval) { clearInterval(autoPlayInterval); autoPlayInterval = null; }
+      }
+      function resetAutoplay() { startAutoplay(); }
+
+      // attach controls
+      nextBtn.addEventListener('click', () => { next(); resetAutoplay(); });
+      prevBtn.addEventListener('click', () => { prev(); resetAutoplay(); });
+
+      // pause on hover for accessibility
+      const sliderContainer = document.getElementById('main-slider');
+      sliderContainer.addEventListener('mouseenter', stopAutoplay);
+      sliderContainer.addEventListener('mouseleave', startAutoplay);
+
+      // initialize
+      window.addEventListener('load', () => {
+        // ensure the first image is visible and dots active
+        update();
+        startAutoplay();
+      });
+
+      // keyboard accessibility
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') { prev(); resetAutoplay(); }
+        if (e.key === 'ArrowRight') { next(); resetAutoplay(); }
+      });
+
+      // make slider responsive in case images load and sizes change
+      window.addEventListener('resize', () => { update(); });
+
+    })();
+  </script>
+</body>
+</html>

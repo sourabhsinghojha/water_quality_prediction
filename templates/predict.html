@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AquaScan - Water Potability Analyzer</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+  <style>
+    /* Reset */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body, html { height: 100%; font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #001f3f 0%, #004d73 100%); color: #e0f7fa; overflow-x: hidden; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; user-select: none; }
+
+    /* Parallax container */
+    .parallax { position: relative; min-height: 100vh; overflow-x: hidden; overflow-y: auto; background: linear-gradient(180deg, #001f3f 0%, #004d73 100%); padding-bottom: 60px; }
+
+    /* Waves background */
+    .waves {
+      position: fixed; bottom: 0; left: 0; width: 200%; height: 200px;
+      background: radial-gradient(circle at 50% 50%, rgba(0,123,255,0.3), transparent 70%), repeating-radial-gradient(circle at 50% 50%, rgba(0,123,255,0.15) 0 10px, transparent 10px 20px);
+      background-size: 100% 100%, 40px 40px;
+      animation: waveMove 12s linear infinite;
+      filter: drop-shadow(0 0 10px #00aaff88);
+      z-index: 0; pointer-events: none; transform: translate3d(0,0,0);
+    }
+    @keyframes waveMove { 0% {background-position:0 0,0 0;} 100% {background-position:1000px 0,40px 40px;} }
+
+    /* Bubbles container */
+    .bubbles { position: fixed; bottom:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1; overflow:visible; filter: drop-shadow(0 0 6px #00aaffaa); }
+    .bubble {
+      position: absolute; border-radius: 50%; background: rgba(0,170,255,0.3); box-shadow:0 0 15px 5px rgba(0,170,255,0.4);
+      animation-timing-function: cubic-bezier(0.4,0,0.2,1); animation-iteration-count: infinite; animation-name: bubbleRise;
+      will-change: transform,opacity; filter: drop-shadow(0 0 8px #00aaffcc); cursor: default;
+    }
+    @keyframes bubbleRise {0%{transform:translateY(100vh) scale(0.7);opacity:0;}20%{opacity:1;}80%{opacity:1;}100%{transform:translateY(-120vh) scale(1.2);opacity:0;}}
+    .bubble:nth-child(1){width:60px;height:60px;left:15%;animation-duration:12s;animation-delay:0s;}
+    .bubble:nth-child(2){width:35px;height:35px;left:40%;animation-duration:10s;animation-delay:3s;}
+    .bubble:nth-child(3){width:45px;height:45px;left:70%;animation-duration:11s;animation-delay:1.5s;}
+    .bubble:nth-child(4){width:25px;height:25px;left:85%;animation-duration:9s;animation-delay:5s;}
+    .bubble:nth-child(5){width:50px;height:50px;left:30%;animation-duration:13s;animation-delay:2s;}
+
+    /* Water drops */
+    .water-drop {
+      position: fixed; bottom:20px; border-radius:50%; background: radial-gradient(circle at center,#00aaffcc 0%,transparent 70%);
+      box-shadow:0 0 12px 3px #00aaffcc; animation-name: dropRippleBounce; animation-iteration-count: infinite; animation-timing-function: ease-in-out;
+      will-change: transform,opacity; pointer-events:none; filter: drop-shadow(0 0 10px #00aaffcc); cursor: default;
+    }
+    @keyframes dropRippleBounce {0%{transform:translateY(0) scale(1);opacity:1;}40%{transform:translateY(25px) scale(1.3);opacity:0.6;}60%{transform:translateY(20px) scale(1.2);opacity:0.7;}80%{transform:translateY(10px) scale(1.1);opacity:0.85;}100%{transform:translateY(0) scale(1);opacity:1;}}
+    .water-drop:nth-child(1){width:14px;height:14px;left:12%;animation-duration:2.4s;animation-delay:0s;}
+    .water-drop:nth-child(2){width:20px;height:20px;left:32%;animation-duration:3.1s;animation-delay:0.7s;}
+    .water-drop:nth-child(3){width:16px;height:16px;left:52%;animation-duration:2.8s;animation-delay:1.3s;}
+    .water-drop:nth-child(4){width:12px;height:12px;left:72%;animation-duration:2.5s;animation-delay:1.8s;}
+    .water-drop:nth-child(5){width:18px;height:18px;left:92%;animation-duration:3.3s;animation-delay:2.4s;}
+
+    /* Container & card */
+    .container { position: relative; z-index:10; max-width:720px; margin:0 auto; padding:60px 20px 80px; display:flex; flex-direction:column; align-items:center; text-align:center; user-select:text; }
+    .card { background: rgba(0,30,60,0.85); border-radius:25px; padding:40px 40px 50px; box-shadow:0 0 20px #00aaffaa,inset 0 0 40px #0077ccaa; width:100%; max-width:600px; transition: box-shadow 0.3s ease; backdrop-filter: saturate(180%) blur(12px); border:1px solid #00aaff55; user-select:text;}
+    .card:hover { box-shadow:0 0 30px #00ccffdd,inset 0 0 50px #0099ffdd; }
+    .card h1 { font-size:3rem;font-weight:700;color:#00ccff;letter-spacing:2px;margin-bottom:6px;text-shadow:0 0 8px #00ccffbb,0 0 20px #00ccffbb,0 0 30px #00aaffee;}
+    .card h2 { font-weight:500;font-size:1.4rem;color:#a0eaff;margin-bottom:40px;text-shadow:0 0 6px #00aaffaa; }
+
+    /* Input fields */
+    .input-field { position: relative;margin:20px 0;border-radius:12px;background:#002a4d;box-shadow: inset 0 0 8px #004d99; padding:18px 20px 18px 50px; transition: box-shadow 0.3s ease; cursor:text; display:flex; align-items:center; }
+    .input-field:focus-within { box-shadow:0 0 12px 2px #00ccff,inset 0 0 14px #00ccff;background:#003366; }
+    .input-field i { position:absolute; top:50%; left:18px; transform:translateY(-50%); color:#00ccff; font-size:1.3rem; pointer-events:none; }
+    .input-field input { border:none; outline:none; width:100%; font-size:1.1rem; background:transparent; color:#a0eaff; font-weight:600; font-family:'Poppins',sans-serif; padding:0; caret-color:#00ccff; transition: color 0.3s ease; }
+    .input-field input::placeholder { color:#00ccff88; font-weight:400; font-style:italic; transition: opacity 0.3s ease; }
+    .input-field input:focus::placeholder { opacity:0.3; }
+
+    /* Prediction button */
+    .prediction-button {
+      position: relative; background-color:#00ccff; color:#001f3f; border:none; border-radius:30px; padding:16px 48px; cursor:pointer; margin-top:35px;
+      font-size:1.3rem; font-weight:700; box-shadow:0 0 15px #00ccffaa,0 0 30px #00ccff88; overflow:hidden; display:inline-flex; align-items:center; gap:14px; text-shadow:0 0 6px #004d73; transition: box-shadow 0.3s ease, transform 0.15s ease;
+    }
+    .prediction-button i { font-size:1.5rem; filter: drop-shadow(0 0 4px #004d73); }
+    .prediction-button:hover { box-shadow:0 0 25px #00e5ffcc,0 0 50px #00e5ffbb; transform:translateY(-3px); }
+    .prediction-button:active { transform:translateY(0); box-shadow:0 0 15px #00ccffaa,0 0 30px #00ccff88; }
+
+    @media (max-width:700px){ .card { padding:30px 25px 40px; } }
+  </style>
+</head>
+<body>
+  <div class="parallax">
+    <div class="waves"></div>
+    <div class="bubbles">
+      <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+    </div>
+    <div class="water-drop"></div><div class="water-drop"></div><div class="water-drop"></div><div class="water-drop"></div><div class="water-drop"></div>
+
+    <div class="container">
+      <div class="card">
+        <h1>AquaScan</h1>
+        <h2>Advanced Water Potability Analysis</h2>
+        <!-- Form submits normally to Flask route -->
+        <form id="waterForm" action="/predict" method="POST">
+          <div class="input-field"><i class="fas fa-tint"></i><input type="number" name="ph" placeholder="pH Level (0–14)" min="0" max="14" step="0.01" required autocomplete="off" /></div>
+          <div class="input-field"><i class="fas fa-water"></i><input type="number" name="hardness" placeholder="Water Hardness (mg/L)" min="0" step="0.1" required autocomplete="off" /></div>
+          <div class="input-field"><i class="fas fa-tint"></i><input type="number" name="tds" placeholder="Total Dissolved Solids (ppm)" min="0" step="1" required autocomplete="off" /></div>
+          <div class="input-field"><i class="fas fa-tint"></i><input type="number" name="chloramines" placeholder="Chloramines (ppm)" min="0" step="0.01" required autocomplete="off" /></div>
+          <div class="input-field"><i class="fas fa-tint"></i><input type="number" name="sulfate" placeholder="Sulfate (ppm)" min="0" step="0.1" required autocomplete="off" /></div>
+          <div class="input-field"><i class="fas fa-tint"></i><input type="number" name="conductivity" placeholder="Conductivity (µS/cm)" min="0" step="1" required autocomplete="off" /></div>
+          <div class="input-field"><i class="fas fa-tint"></i><input type="number" name="organic_carbon" placeholder="Organic Carbon (mg/L)" min="0" step="0.01" required autocomplete="off" /></div>
+          <div class="input-field"><i class="fas fa-tint"></i><input type="number" name="trihalomethanes" placeholder="Trihalomethanes (ppm)" min="0" step="0.01" required autocomplete="off" /></div>
+          <div class="input-field"><i class="fas fa-tint"></i><input type="number" name="turbidity" placeholder="Turbidity (NTU)" min="0" step="0.01" required autocomplete="off" /></div>
+          <button class="prediction-button" type="submit"><i class="fas fa-rocket"></i> Make Prediction</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

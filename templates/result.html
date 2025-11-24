@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AquaScan - Water Potability Result</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body, html { height: 100%; margin: 0; font-family: 'Poppins', sans-serif; background: linear-gradient(135deg,#001f3f 0%,#004d73 100%); color: #e0f7fa; display:flex; justify-content:center; align-items:center; text-align:center; }
+    .card { background: rgba(0,30,60,0.85); border-radius:25px; padding:50px 40px; max-width:500px; box-shadow:0 0 20px #00aaffaa,inset 0 0 40px #0077ccaa; backdrop-filter: blur(12px); }
+    h1 { color: #00ccff; font-size:3rem; margin-bottom:10px; text-shadow:0 0 8px #00ccffbb,0 0 20px #00ccffbb; }
+    h2 { color:#a0eaff; font-weight:500; margin-bottom:30px; }
+    p { font-size:1.5rem; margin:15px 0; font-weight:600; }
+    .back-button { margin-top:30px; display:inline-block; padding:12px 30px; background:#00ccff; color:#001f3f; border:none; border-radius:30px; text-decoration:none; font-weight:600; box-shadow:0 0 15px #00ccffaa,0 0 30px #00ccff88; transition:0.3s; }
+    .back-button:hover { transform:translateY(-3px); box-shadow:0 0 25px #00e5ffcc,0 0 50px #00e5ffbb; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>AquaScan</h1>
+    <h2>Water Potability Analysis Result</h2>
+    <p>Status: {{ label }}</p>
+    <a class="back-button" href="/">&#8592; Check Potability Again</a>
+  </div>
+</body>
+</html>
