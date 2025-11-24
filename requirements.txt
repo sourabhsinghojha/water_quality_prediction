@@ -1,4 +1,4 @@
-Gunicorn
+gunicorn
 blinker==1.9.0
 click==8.2.1
 colorama==0.4.6
@@ -26,4 +26,5 @@ six==1.17.0
 threadpoolctl==3.6.0
 tzdata==2025.2
 Werkzeug==3.1.3
+
 
